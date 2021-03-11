@@ -4,8 +4,8 @@ import {useParams} from 'react-router-dom';
 import {gql, useQuery} from '@apollo/client'
 
 const query = gql`
-query documents {
-    documents(siteKey: "Guest") {
+query assetLibraryDocuments($filter: String!) {
+    assetLibraryDocuments(assetLibraryId: "MyAssetLibrary", filter: $filter) {
       items {
         creator {
           id
@@ -35,7 +35,11 @@ export default () => {
     setPlaying(!playing);
   };
 
-  const {loading, data} = useQuery(query);
+  const {loading, data} = useQuery(query, {
+    variables: {
+      filter: `creatorId eq ${creatorId}`
+    }
+  });
 
   console.log(data)
 
@@ -43,11 +47,11 @@ export default () => {
     <>
       <div className="video">
         {
-        data && data.documents && data.documents.items.map(document => (
-          <video key={document.contentUrl} style={{width: "33%"}} onClick={onVideoPress}
-                 src={`http://localhost:8080/${document.contentUrl}`}/>
-        ))
-      }</div>
+          data && data.assetLibraryDocuments && data.assetLibraryDocuments.items.map(document => (
+            <video key={document.contentUrl} style={{width: "33%"}} onClick={onVideoPress}
+                   src={`http://localhost:8080/${document.contentUrl}`}/>
+          ))
+        }</div>
     </>
   )
 }
