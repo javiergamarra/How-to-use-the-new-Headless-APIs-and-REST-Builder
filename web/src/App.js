@@ -16,6 +16,7 @@ export default () => {
         console.log(data);
         setVideos(data.items.map(item => ({
           creator: item.creator,
+          remove: item.actions.delete,
           description: item.description,
           song: item.title,
           url: 'http://localhost:8080/' + item.contentUrl
