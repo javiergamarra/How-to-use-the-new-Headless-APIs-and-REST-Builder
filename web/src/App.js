@@ -10,11 +10,11 @@ export default () => {
   const [videos, setVideos] = useState(FAKE_VIDEOS);
 
   useEffect(() => {
-    fetch('http://localhost:8080/o/headless-delivery/v1.0/asset-libraries/MyAssetLibrary/documents', {headers: {"Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0"}})
+    fetch('http://localhost:8080/o/headless-delivery/v1.0/asset-libraries/MyAssetLibrary/content-elements', {headers: {"Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0"}})
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        setVideos(data.items.map(item => ({
+        setVideos(data.items.map(({content: item}) => ({
           creator: item.creator,
           remove: item.actions.delete,
           description: item.description,
