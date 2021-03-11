@@ -6,7 +6,22 @@ import UserProfile from './UserProfile';
 
 export default () => {
 
+
   const [videos, setVideos] = useState(FAKE_VIDEOS);
+
+  useEffect(() => {
+    fetch('http://localhost:8080/o/headless-delivery/v1.0/sites/Guest/documents', {headers: {"Authorization": "Basic dGVzdEBsaWZlcmF5LmNvbTp0ZXN0"}})
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setVideos(data.items.map(item => ({
+          creator: item.creator,
+          description: item.description,
+          song: item.title,
+          url: 'http://localhost:8080/' + item.contentUrl
+        })))
+      })
+  }, [])
 
   return (
     <Router>
