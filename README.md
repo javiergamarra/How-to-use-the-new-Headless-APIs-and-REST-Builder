@@ -4,7 +4,7 @@ Code for [Devcon 2021](https://events.liferay.com/backoffice/conference/30) talk
 
 The idea is to a simple TikTok clone like this:
 
-<img src="demo.gif">
+<img src="web/demo.gif">
 
 -> Tested in 7.4/7.3 but Headless code is backported to 7.2 and 7.1.
 
