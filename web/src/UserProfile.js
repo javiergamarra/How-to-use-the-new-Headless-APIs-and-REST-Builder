@@ -3,6 +3,22 @@ import {useParams} from 'react-router-dom';
 
 import {gql, useQuery} from '@apollo/client'
 
+const query = gql`
+query documents {
+    documents(siteKey: "Guest") {
+      items {
+        creator {
+          id
+          name
+        }
+        contentUrl
+        description
+        title
+      }
+    }
+  }`
+
+
 export default () => {
 
   const {creatorId} = useParams();
@@ -19,7 +35,7 @@ export default () => {
     setPlaying(!playing);
   };
 
-  const data = [];
+  const {loading, data} = useQuery(query);
 
   console.log(data)
 
